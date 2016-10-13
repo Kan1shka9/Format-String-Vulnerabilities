@@ -55,7 +55,7 @@ $ ./correct_implementation %s
 ```
 Converts the arguments to a string and prints it to the console.
 
-#### Incorrect implementation of Format strings. <i>(One argument, No format specifier)</i>
+#### Incorrect implementation of Format strings. <i>(One argument, No format specifier, One Variable)</i>
 ```c
 #include<stdio.h>
 
@@ -199,7 +199,7 @@ Quit
 (gdb)
 ```
 
-#### Incorrect implementation of Format strings.
+#### Incorrect implementation of Format strings.<i>(One argument, No format specifier, Two Variables)</i>
 ```c
 #include<stdio.h>
 
