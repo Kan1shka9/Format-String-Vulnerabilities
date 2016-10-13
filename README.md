@@ -397,9 +397,10 @@ Printing the first argument: Hi Try printing this -> 1
 (gdb)
 ```
 #### Crashing the program
-* Denial Of service
-* Shutdown the remote service
-* Obtain core dump
+* Motive
+  * Denial Of service
+  * Shutdown the remote service
+  * Obtain core dump
 ```sh
 $ ./incorrect_implementation2 %s
 Try printing this -> 1
