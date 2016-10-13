@@ -96,5 +96,5 @@ Try printing this -> 1
 |					 |
 |		 RET		 |
 |____________________|
-				      Low Memory
+				        Low Memory
 </pre>
