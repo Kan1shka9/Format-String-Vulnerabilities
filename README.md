@@ -99,7 +99,7 @@ Hi
 $ ./incorrect_implementation %s
 Try printing this -> 1
 ```
-#### Debugging <i>incorrect_implementation.c</i> in GDB
+#### ** Debugging <i>incorrect_implementation.c</i> in GDB
 ```text
 gdb ./incorrect_implementation -q
 Reading symbols from ./incorrect_implementation...done.
@@ -219,7 +219,7 @@ $ ./incorrect_implementation2 %s%s
 Try printing this -> 1
 Try printing this -> 2
 ```
-#### Debugging <i>incorrect_implementation2.c</i> in GDB
+#### ** Debugging <i>incorrect_implementation2.c</i> in GDB
 ```text
 $ gdb ./incorrect_implementation2 -q
 Reading symbols from ./incorrect_implementation2...done.
