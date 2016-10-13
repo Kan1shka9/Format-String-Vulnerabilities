@@ -134,11 +134,11 @@ Starting program: /home/cs/Desktop/1/incorrect_implementation Hi
 Breakpoint 1, 0x08048421 in main (argc=2, argv=0xbffff6e4) at incorrect_implementation.c:5
 5               printf(argv[1]);
 (gdb) x/8xw $esp
-			(argv[1] - user input)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(argv[1] - user input)
 0xbffff640:     0xbffff844      0x080484b0      0x00000000      0xb7e23637
-	(Pointer to format string)	   (Pointer to secret)
+&nbsp;(Pointer to format string)(Pointer to secret)
 0xbffff650:     0x00000002      0xbffff6e4      0xbffff6f0      0x00000000
-         (Base/Frame pointer) (return address -> __libc_start_main)
+&nbsp;    (Base/Frame pointer) (return address -> __libc_start_main)
 (gdb) x/4xw $ebp
 0xbffff648:     0x00000000      0xb7e23637      0x00000002      0xbffff6e4
 (gdb) disas 0xb7e23637
