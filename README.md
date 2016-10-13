@@ -79,7 +79,7 @@ Try printing this -> 1
 |	   4 bytes		 |  
 |____________________|		
 |					 |
-|	   Arg n		 |  ----------> Nth Argument
+|	    Arg n		 |  ----------> Nth Argument
 |____________________|
 |					 |
 |		   ---		 |	printf("%s %d ... %x", arg1, arg2 ... argn)
