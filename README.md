@@ -396,3 +396,74 @@ Printing the first argument: Hi Try printing this -> 1
 [Inferior 1 (process 5764) exited normally]
 (gdb)
 ```
+#### Crashing the program
+```sh
+$ ./incorrect_implementation2 %s
+Try printing this -> 1
+$ ./incorrect_implementation2 %s%s
+Try printing this -> 1
+Try printing this -> 2
+$ ./incorrect_implementation2 %s%s%s
+Try printing this -> 1
+Try printing this -> 2
+(null)
+$ ./incorrect_implementation2 %s%s%s%s
+Try printing this -> 1
+Try printing this -> 2
+(null)▒▒▒▒
+P▒mc
+$ ./incorrect_implementation2 %s%s%s%s%s
+Try printing this -> 1
+Try printing this -> 2
+Segmentation fault (core dumped)
+$ 
+```
+#### ** Debugging the crash in GDB
+```text
+$ gdb ./incorrect_implementation2 -q
+Reading symbols from ./incorrect_implementation2...done.
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0804840b <+0>:     push   %ebp
+   0x0804840c <+1>:     mov    %esp,%ebp
+   0x0804840e <+3>:     sub    $0x8,%esp
+   0x08048411 <+6>:     movl   $0x80484c0,-0x8(%ebp)
+   0x08048418 <+13>:    movl   $0x80484d9,-0x4(%ebp)
+   0x0804841f <+20>:    mov    0xc(%ebp),%eax
+   0x08048422 <+23>:    add    $0x4,%eax
+   0x08048425 <+26>:    mov    (%eax),%eax
+   0x08048427 <+28>:    push   %eax
+   0x08048428 <+29>:    call   0x80482e0 <printf@plt>
+   0x0804842d <+34>:    add    $0x4,%esp
+   0x08048430 <+37>:    mov    $0x0,%eax
+   0x08048435 <+42>:    leave
+   0x08048436 <+43>:    ret
+End of assembler dump.
+(gdb) b *0x08048428
+Breakpoint 1 at 0x8048428: file incorrect_implementation2.c, line 6.
+(gdb) run %s%s%s%s%s
+Starting program: /home/cs/Desktop/3/incorrect_implementation2 %s%s%s%s%s
+
+Breakpoint 1, 0x08048428 in main (argc=2, argv=0xbffff6d4) at incorrect_implementation2.c:6
+6               printf(argv[1]);
+(gdb) x/8xw $esp
+0xbffff62c:     0xbffff83b      0x080484c0      0x080484d9      0x00000000
+0xbffff63c:     0xb7e23637      0x00000002      0xbffff6d4      0xbffff6e0
+(gdb) x/2xw $ebp
+0xbffff638:     0x00000000      0xb7e23637
+(gdb) x/1s 0xbffff83b
+0xbffff83b:     "%s%s%s%s%s"
+(gdb) x/1s 0x080484c0
+0x80484c0:      "Try printing this -> 1 \n"
+(gdb) x/1s 0x080484d9
+0x80484d9:      "Try printing this -> 2 \n"
+(gdb) c
+Continuing.
+Try printing this -> 1
+Try printing this -> 2
+
+Program received signal SIGSEGV, Segmentation fault.
+0xb7e4f353 in _IO_vfprintf_internal (s=0xb7fbdd60 <_IO_2_1_stdout_>, format=<optimized out>, ap=0xbffff644 "\324\366\377\277\340\366\377\277") at vfprintf.c:1632
+1632    vfprintf.c: No such file or directory.
+(gdb) quit
+```
