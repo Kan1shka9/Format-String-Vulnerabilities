@@ -37,7 +37,7 @@ Format function
 * Crash the program.
 * View the stack
 * View memory at arbitrary locations
-* Overwrite memory with arbitrary data
+* Overwrite memory at arbitrary locations
 * Code execution
 
 #### Stack layout
