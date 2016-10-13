@@ -65,7 +65,7 @@ Format function
 				        Low Memory
 ```
 
-#### 1.) Correct implementation of Format strings. <i>(One argument, One format specifier)</i>
+#### 1.) Correct implementation of Format strings. <i>(One argument, One format specifier, No Variables)</i>
 ```c
 #include<stdio.h>
 
