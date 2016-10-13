@@ -38,6 +38,33 @@ Format function
 * Info leak (View process memory)
 * Overwrite memory with arbitrary data
 
+#### Stack layout
+```text
+ ____________________	High Memory
+|                    |		
+|	   4 bytes		 |  
+|____________________|		
+|					 |
+|	    Arg n		 |  ----------> Nth Argument
+|____________________|
+|					 |
+|		   ---		 |	printf("%s %d ... %x", arg1, arg2 ... argn)
+|____________________|
+|					 |
+|		Arg 2		 |  ----------> Second Argument
+|____________________|
+|					 |
+|		Arg 1		 |  ----------> First Argument
+|____________________|
+|					 |
+|	 Format String	 |  ----------> Format string %s
+|____________________|
+|					 |
+|		 RET		 |
+|____________________|
+				        Low Memory
+```
+
 #### Correct implementation of Format strings. <i>(One argument, One format specifier)</i>
 ```c
 #include<stdio.h>
@@ -72,33 +99,6 @@ Hi
 $ ./incorrect_implementation %s
 Try printing this -> 1
 ```
-#### Stack layout
-```text
- ____________________	High Memory
-|                    |		
-|	   4 bytes		 |  
-|____________________|		
-|					 |
-|	    Arg n		 |  ----------> Nth Argument
-|____________________|
-|					 |
-|		   ---		 |	printf("%s %d ... %x", arg1, arg2 ... argn)
-|____________________|
-|					 |
-|		Arg 2		 |  ----------> Second Argument
-|____________________|
-|					 |
-|		Arg 1		 |  ----------> First Argument
-|____________________|
-|					 |
-|	 Format String	 |  ----------> Format string %s
-|____________________|
-|					 |
-|		 RET		 |
-|____________________|
-				        Low Memory
-```
-
 #### Debugging <i>incorrect_implementation.c</i> in GDB
 ```text
 gdb ./incorrect_implementation -q
