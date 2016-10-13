@@ -329,3 +329,68 @@ Printing the first argument: Hi Try printing this -> 1
 [Inferior 1 (process 5655) exited normally]
 (gdb) quit
 ```
+#### 4.) Incorrect implementation of Format strings.<i>(One argument, Three format specifiers, Two Variables)</i>
+```c
+#include<stdio.h>
+
+main(int argc, char**argv){
+        char *secret1 = "Try printing this -> 1 \n";
+        char *secret2 = "Try printing this -> 2 \n";
+        printf("Printing the first argument: %s %s %s \n", argv[1]);
+}
+
+```
+```sh
+$ gcc -ggdb -mpreferred-stack-boundary=2 incorrect_implementation4.c -o incorrect_implementation4
+$  ./incorrect_implementation4 Hi
+Printing the first argument: Hi Try printing this -> 1
+ Try printing this -> 2
+```
+#### ** Debugging <i>incorrect_implementation4.c</i> in GDB
+```text
+$ gdb ./incorrect_implementation4 -q
+Reading symbols from ./incorrect_implementation4...done.
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0804840b <+0>:     push   %ebp
+   0x0804840c <+1>:     mov    %esp,%ebp
+   0x0804840e <+3>:     sub    $0x8,%esp
+   0x08048411 <+6>:     movl   $0x80484c0,-0x8(%ebp)
+   0x08048418 <+13>:    movl   $0x80484d9,-0x4(%ebp)
+   0x0804841f <+20>:    mov    0xc(%ebp),%eax
+   0x08048422 <+23>:    add    $0x4,%eax
+   0x08048425 <+26>:    mov    (%eax),%eax
+   0x08048427 <+28>:    push   %eax
+   0x08048428 <+29>:    push   $0x80484f4
+   0x0804842d <+34>:    call   0x80482e0 <printf@plt>
+   0x08048432 <+39>:    add    $0x8,%esp
+   0x08048435 <+42>:    mov    $0x0,%eax
+   0x0804843a <+47>:    leave
+   0x0804843b <+48>:    ret
+End of assembler dump.
+(gdb) b *0x0804842d
+Breakpoint 1 at 0x804842d: file incorrect_implementation4.c, line 6.
+(gdb) run Hi
+Starting program: /home/cs/Desktop/2/incorrect_implementation4 Hi
+
+Breakpoint 1, 0x0804842d in main (argc=2, argv=0xbffff6e4) at incorrect_implementation4.c:6
+6               printf("Printing the first argument: %s %s %s \n", argv[1]);
+(gdb) x/8xw $esp
+0xbffff638:     0x080484f4      0xbffff843      0x080484c0      0x080484d9
+0xbffff648:     0x00000000      0xb7e23637      0x00000002      0xbffff6e4
+(gdb) x/1s 0x080484f4
+0x80484f4:      "Printing the first argument: %s %s %s \n"
+(gdb) x/1s 0xbffff843
+0xbffff843:     "Hi"
+(gdb) x/1s 0x080484c0
+0x80484c0:      "Try printing this -> 1 \n"
+(gdb) x/1s 0x080484d9
+0x80484d9:      "Try printing this -> 2 \n"
+(gdb) c
+Continuing.
+Printing the first argument: Hi Try printing this -> 1
+ Try printing this -> 2
+
+[Inferior 1 (process 5764) exited normally]
+(gdb)
+```
