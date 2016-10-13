@@ -73,7 +73,7 @@ $ ./incorrect_implementation %s
 Try printing this -> 1
 ```
 #### Stack layout
-<pre>
+```text
  ____________________	High Memory
 |                    |		
 |	   4 bytes		 |  
@@ -97,10 +97,10 @@ Try printing this -> 1
 |		 RET		 |
 |____________________|
 				        Low Memory
-</pre>
+```
 
 #### Debugging <i>incorrect_implementation.c</i> in GDB
-<pre>
+```text
 gdb ./incorrect_implementation -q
 Reading symbols from ./incorrect_implementation...done.
 (gdb) list
@@ -197,7 +197,7 @@ Quit
 (gdb) x/1s 0x080484b0
 0x80484b0:      "Try printing this -> 1 \n"
 (gdb)
-</pre>
+```
 
 #### Incorrect implementation of Format strings.
 ```c
@@ -219,7 +219,7 @@ Try printing this -> 1
 Try printing this -> 2
 ```
 #### Debugging <i>incorrect_implementation2.c</i> in GDB
-<pre>
+```text
 $ gdb ./incorrect_implementation2 -q
 Reading symbols from ./incorrect_implementation2...done.
 (gdb) list
@@ -264,4 +264,4 @@ Breakpoint 1, 0x08048428 in main (argc=2, argv=0xbffff6e4) at incorrect_implemen
 (gdb) x/1s 0x080484d9
 0x80484d9:      "Try printing this -> 2 \n"
 (gdb)
-</pre>
+```
