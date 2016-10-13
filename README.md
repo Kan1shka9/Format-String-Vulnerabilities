@@ -198,3 +198,23 @@ Quit
 0x80484b0:      "Try printing this -> 1 \n"
 (gdb)
 </pre>
+
+#### Incorrect implementation of Format strings.
+```c
+#include<stdio.h>
+
+main(int argc, char**argv){
+        char *secret1 = "Try printing this -> 1 \n";
+        char *secret2 = "Try printing this -> 2 \n";
+        printf(argv[1]);
+}
+```
+```sh
+$ ./incorrect_implementation2 Hi
+Hi
+$ ./incorrect_implementation2 %s
+Try printing this -> 1
+$ ./incorrect_implementation2 %s%s
+Try printing this -> 1
+Try printing this -> 2
+```
