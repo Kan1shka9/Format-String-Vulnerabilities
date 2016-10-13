@@ -38,7 +38,7 @@ Format function
 * Info leak (View process memory)
 * Overwrite memory with arbitrary data
 
-#### Correct implementation of Format strings.
+#### Correct implementation of Format strings. <i>(One argument, One format specifier)</i>
 ```c
 #include<stdio.h>
 
@@ -55,7 +55,7 @@ $ ./correct_implementation %s
 ```
 Converts the arguments to a string and prints it to the console.
 
-#### Incorrect implementation of Format strings.
+#### Incorrect implementation of Format strings. <i>(One argument, No format specifier)</i>
 ```c
 #include<stdio.h>
 
