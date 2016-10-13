@@ -329,7 +329,7 @@ Printing the first argument: Hi Try printing this -> 1
 [Inferior 1 (process 5655) exited normally]
 (gdb) quit
 ```
-#### 4.) Incorrect implementation of Format strings.<i>(One argument, Three format specifiers, Two Variables)</i>
+#### 5.) Incorrect implementation of Format strings.<i>(One argument, Three format specifiers, Two Variables)</i>
 ```c
 #include<stdio.h>
 
