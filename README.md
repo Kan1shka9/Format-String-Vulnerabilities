@@ -314,8 +314,6 @@ Breakpoint 1, 0x0804842d in main (argc=2, argv=0xbffff6e4) at incorrect_implemen
 (gdb) x/8xw $esp
 0xbffff638:     0x080484f4      0xbffff843      0x080484c0      0x080484d9
 0xbffff648:     0x00000000      0xb7e23637      0x00000002      0xbffff6e4
-(gdb) x/1xw 0x080484f4
-0x80484f4:      0x6e697250
 (gdb) x/1s 0x080484f4
 0x80484f4:      "Printing the first argument: %s %s \n"
 (gdb) x/1s 0xbffff843
