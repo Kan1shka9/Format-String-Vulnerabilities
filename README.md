@@ -1,4 +1,4 @@
-# Format-String-Vulnerabilities
+# Format String Vulnerabilities
 #### What is a format string?
 * Format string is an ASCIIZ string used to specify and control the representation of different variables.
 ```c
