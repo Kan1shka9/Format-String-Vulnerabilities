@@ -218,3 +218,50 @@ $ ./incorrect_implementation2 %s%s
 Try printing this -> 1
 Try printing this -> 2
 ```
+#### Debugging <i>incorrect_implementation2.c</i> in GDB
+<pre>
+$ gdb ./incorrect_implementation2 -q
+Reading symbols from ./incorrect_implementation2...done.
+(gdb) list
+1       #include<stdio.h>
+2
+3       main(int argc, char**argv){
+4               char *secret1 = "Try printing this -> 1 \n";
+5               char *secret2 = "Try printing this -> 2 \n";
+6               printf(argv[1]);
+7       }
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0804840b <+0>:     push   %ebp
+   0x0804840c <+1>:     mov    %esp,%ebp
+   0x0804840e <+3>:     sub    $0x8,%esp
+   0x08048411 <+6>:     movl   $0x80484c0,-0x8(%ebp)
+   0x08048418 <+13>:    movl   $0x80484d9,-0x4(%ebp)
+   0x0804841f <+20>:    mov    0xc(%ebp),%eax
+   0x08048422 <+23>:    add    $0x4,%eax
+   0x08048425 <+26>:    mov    (%eax),%eax
+   0x08048427 <+28>:    push   %eax
+   0x08048428 <+29>:    call   0x80482e0 <printf@plt>
+   0x0804842d <+34>:    add    $0x4,%esp
+   0x08048430 <+37>:    mov    $0x0,%eax
+   0x08048435 <+42>:    leave
+   0x08048436 <+43>:    ret
+End of assembler dump.
+(gdb) b *0x08048428
+Breakpoint 1 at 0x8048428: file incorrect_implementation2.c, line 6.
+(gdb) run Hi
+Starting program: /home/cs/Desktop/1/incorrect_implementation2 Hi
+
+Breakpoint 1, 0x08048428 in main (argc=2, argv=0xbffff6e4) at incorrect_implementation2.c:6
+6               printf(argv[1]);
+(gdb) x/8xw $esp
+0xbffff63c:     0xbffff843      0x080484c0      0x080484d9      0x00000000
+0xbffff64c:     0xb7e23637      0x00000002      0xbffff6e4      0xbffff6f0
+(gdb) x/1s 0xbffff843
+0xbffff843:     "Hi"
+(gdb) x/1s 0x080484c0
+0x80484c0:      "Try printing this -> 1 \n"
+(gdb) x/1s 0x080484d9
+0x80484d9:      "Try printing this -> 2 \n"
+(gdb)
+</pre>
