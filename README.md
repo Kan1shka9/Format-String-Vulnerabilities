@@ -210,6 +210,7 @@ main(int argc, char**argv){
 }
 ```
 ```sh
+$ gcc -ggdb -mpreferred-stack-boundary=2 incorrect_implementation2.c -o incorrect_implementation2
 $ ./incorrect_implementation2 Hi
 Hi
 $ ./incorrect_implementation2 %s
