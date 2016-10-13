@@ -35,8 +35,10 @@ Format function
 
 #### What can be achieved with this?
 * Crash the program.
-* Info leak (View process memory)
+* View the stack
+* View memory at arbitrary locations
 * Overwrite memory with arbitrary data
+* Code execution
 
 #### Stack layout
 ```text
