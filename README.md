@@ -136,11 +136,11 @@ Breakpoint 1, 0x08048421 in main (argc=2, argv=0xbffff6e4) at incorrect_implemen
 </pre>
 <pre>
 (gdb) x/8xw $esp
-			            (argv[1] - user input)
+			   (argv[1] - user input)
 0xbffff640:     0xbffff844      0x080484b0      0x00000000      0xb7e23637
     (Pointer to format string)              (Pointer to secret)
 0xbffff650:     0x00000002      0xbffff6e4      0xbffff6f0      0x00000000
-	     (Base/Frame pointer) (return address -> __libc_start_main)
+	   (Base/Frame pointer) (return address -> __libc_start_main)
 (gdb) x/4xw $ebp
 0xbffff648:     0x00000000      0xb7e23637      0x00000002      0xbffff6e4
 (gdb) disas 0xb7e23637
