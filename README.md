@@ -199,7 +199,7 @@ Quit
 (gdb)
 ```
 
-#### 3.) Incorrect implementation of Format strings.<i>(One argument, No format specifier, Two Variables)</i>
+#### 3.) Incorrect implementation of Format strings. <i>(One argument, No format specifier, Two Variables)</i>
 ```c
 #include<stdio.h>
 
@@ -267,7 +267,7 @@ Breakpoint 1, 0x08048428 in main (argc=2, argv=0xbffff6e4) at incorrect_implemen
 (gdb)
 ```
 
-#### 4.) Incorrect implementation of Format strings.<i>(One argument, Two format specifiers, Two Variables)</i>
+#### 4.) Incorrect implementation of Format strings. <i>(One argument, Two format specifiers, Two Variables)</i>
 ```c
 #include<stdio.h>
 
@@ -329,7 +329,7 @@ Printing the first argument: Hi Try printing this -> 1
 [Inferior 1 (process 5655) exited normally]
 (gdb) quit
 ```
-#### 5.) Incorrect implementation of Format strings.<i>(One argument, Three format specifiers, Two Variables)</i>
+#### 5.) Incorrect implementation of Format strings. <i>(One argument, Three format specifiers, Two Variables)</i>
 ```c
 #include<stdio.h>
 
