@@ -99,7 +99,7 @@ Try printing this -> 1
 				        Low Memory
 </pre>
 
-#### Debugging incorrect_implementation.c in GDB
+#### Debugging <i>incorrect_implementation.c</i> in GDB
 <pre>
 gdb ./incorrect_implementation -q
 Reading symbols from ./incorrect_implementation...done.
