@@ -196,4 +196,5 @@ Quit
 0xbffff844:     "Hi"
 (gdb) x/1s 0x080484b0
 0x80484b0:      "Try printing this -> 1 \n"
+(gdb)
 </pre>
