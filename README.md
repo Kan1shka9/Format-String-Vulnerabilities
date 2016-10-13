@@ -100,7 +100,7 @@ Try printing this -> 1
 </pre>
 
 #### Debugging incorrect_implementation.c in GDB
-```
+<pre>
 gdb ./incorrect_implementation -q
 Reading symbols from ./incorrect_implementation...done.
 (gdb) list
@@ -196,4 +196,4 @@ Quit
 0xbffff844:     "Hi"
 (gdb) x/1s 0x080484b0
 0x80484b0:      "Try printing this -> 1 \n"
-```
+</pre>
